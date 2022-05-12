@@ -1,0 +1,16 @@
+{% extends "base.html" %} {% block content %}
+
+<h1>Here's a good book: {{book.title}}</h1>
+
+<h3>Author: {{book.author}}</h3>
+
+{% if not book.owner %}
+<form method="POST">
+  {% csrf_token %} {{ form.as_p }}
+  <input type="submit" value="Loan this book?" />
+</form>
+{% else %} {% if book.owner == user %}
+<div>Enjoy reading your new book!</div>
+{% else %}
+<div>I have been taken out on loan by {{book.owner.username}}</div>
+{% endif %} {% endif %} {% endblock content%}
